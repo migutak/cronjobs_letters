@@ -1,0 +1,25 @@
+{
+  "name": "cronjobs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "send_letters.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node send_letters.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/migutak/cronjobs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/migutak/cronjobs/issues"
+  },
+  "homepage": "https://github.com/migutak/cronjobs#readme",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "email-validator": "^2.0.4"
+  }
+}
