@@ -20,6 +20,9 @@
   "homepage": "https://github.com/migutak/cronjobs#readme",
   "dependencies": {
     "axios": "^0.19.0",
-    "email-validator": "^2.0.4"
+    "email-validator": "^2.0.4",
+    "express": "^4.17.1",
+    "log4js": "^4.4.0",
+    "node-cron": "^2.0.3"
   }
 }
