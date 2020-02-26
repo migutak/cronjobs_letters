@@ -5,6 +5,7 @@ var amqp = require('amqplib/callback_api');
 oracledb.outFormat = oracledb.OBJECT;
 oracledb.autoCommit = true;
 var dbConfig = require('./dbconfig.js');
+// var bail = require('bail');
 
 function doRelease(connection) {
     connection.close(
@@ -56,5 +57,11 @@ amqp.connect(dbConfig.RABBITMQ, (err, conn) => {
         }, {noAck: true})
     }
 })
+
+function bail(err) {
+    console.error(err);
+    process.exit(1);
+}
+
 app.listen('2502');
-console.log('dd status update app running ....')
+console.log('dd status update app running on port 2502')

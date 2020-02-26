@@ -1,0 +1,21 @@
+version: "3.3"
+services:
+  cronjobs_letters:
+    image: migutak/cronjobs_letters
+    container_name: cronjobs_letters
+    restart: always
+    environment:
+      - RABBITMQ=amqp://guest:guest@ecollectweb.co-opbank.co.ke
+      - LETTERGENERATEURL=http://172.16.204.71:8004/docx
+      - DB_USER=ecol
+      - DB_PASSWORD=ecol
+      - DB_CONNECTIONSTRING=172.16.210.14:1564/ecollect
+      - SENDEMAILURL=http://172.16.204.71:8005/demandemail/email
+      - API=http://172.16.204.71:8000
+      - NODEAPI=http://172.16.204.71:6001/nodeapi
+    ports:
+      - "3218:3218"
+      - "2502:2502"
+      - "2505:2505"
+      - "2503:2503"
+      - "2504:2504"

@@ -1,0 +1,10 @@
+FROM node:10.16.3-alpine
+WORKDIR /app
+COPY . /app
+
+CMD ["npm" , "start"]
+
+EXPOSE 3218
+EXPOSE 3000
+EXPOSE 5001
+EXPOSE 5000

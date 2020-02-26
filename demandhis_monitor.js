@@ -48,5 +48,10 @@ amqp.connect(dbConfig.RABBITMQ, (err, conn) => {
     }
 })
 
+function bail(err) {
+    console.error(err);
+    process.exit(1);
+}
+
 app.listen('2505');
 console.log('dd his update app running ....');                    

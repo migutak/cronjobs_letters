@@ -5,7 +5,7 @@
   "main": "send_letters.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node send_letters.js"
+    "start": "concurrently \"node send_demands.js\" \"node demand_status.js\" \"node generate.js\" \"node sms_monitor.js\" \"node demandhis_monitor.js\""
   },
   "repository": {
     "type": "git",
@@ -21,12 +21,14 @@
   "dependencies": {
     "amqplib": "^0.5.3",
     "axios": "^0.19.0",
+    "bail": "^1.0.4",
     "body-parser": "^1.19.0",
+    "concurrently": "^5.0.0",
     "cors": "^2.8.5",
     "email-validator": "^2.0.4",
     "express": "^4.17.1",
     "log4js": "^4.4.0",
     "node-cron": "^2.0.3",
-    "oracledb": "^3.1.2"
+    "oracledb": "^4.0.1"
   }
 }

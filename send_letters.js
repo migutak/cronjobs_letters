@@ -17,10 +17,10 @@ log4js.configure({
 
 var logger = log4js.getLogger('demands');
 
-const URL = 'http://172.16.19.151:8004/docx/';
-const API = 'http://172.16.204.71:8000';
-const EMAIL = 'http://172.16.204.71:8005/demandemail/email';
-const NODEAPI = 'http://172.16.204.71:6001/nodeapi';
+const URL = dbConfig.LETTERGENERATEURL; // 'http://172.16.19.151:8004/docx/';
+const API = dbConfig.API; // 'http://172.16.204.71:8000';
+const EMAIL = dbConfig.SENDEMAILURL; // 'http://172.16.204.71:8005/demandemail/email';
+const NODEAPI = dbConfig.NODEAPI; // 'http://172.16.204.71:6001/nodeapi';
 const bodyletter = {};
 const emaildata = {};
 const demandhisdetails = {};

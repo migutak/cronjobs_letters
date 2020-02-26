@@ -32,7 +32,9 @@ function currentDate() {
 }
 
 // schedule tasks to be run on the server
-cron.schedule("* * * * *", function () {
+// every minute past every hour from 6 to 18 everyday of the week monday to saturday
+// changed from * 06-18 * * 1-6 to * * * * 1-6
+cron.schedule("*/30 * * * * 1-6", function () {
     //
     console.log("---------------------");
     console.log("Running Cron Job");
