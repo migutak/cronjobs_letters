@@ -64,7 +64,6 @@ cron.schedule("*/30 * * * * 1-6", function () {
                         return;
                     }
                     // each row, validate email
-                    console.log(result.rows.length);
                     if (result.rows.length > 0) {
                         for (i = 0; i < result.rows.length; i++) {
                             var record = result.rows[i];
@@ -120,6 +119,28 @@ cron.schedule("*/30 * * * * 1-6", function () {
                                                     ch.sendToQueue(queue, Buffer.from(JSON.stringify(bodyletter)));
                                                     console.log('demands_togenerate was sent');
                                                 }
+                                            });
+
+                                            // update with invalid email
+                                            const status = {
+                                                id: record.ID,
+                                                from: 'loans',
+                                                datesent: currentDate(),
+                                                status: 'processing',
+                                                sentby: 'auto'
+                                            };
+                                            // push to queue
+                                            //
+                                            amqp.connect(dbConfig.RABBITMQ, (err, conn) => {
+                                                if (err != null) bail(err);
+                                                conn.createChannel(on_open);
+                                                function on_open(err, ch) {
+                                                    if (err != null) bail(err);
+                                                    var queue = 'demandstatus';
+                                                    ch.assertQueue(queue, { durable: false });
+                                                    ch.sendToQueue(queue, Buffer.from(JSON.stringify(status)));
+                                                    console.log('status processing sent to demandstatus queue');
+                                                }
                                             })
                                         } else {
                                             // no data
@@ -149,7 +170,7 @@ cron.schedule("*/30 * * * * 1-6", function () {
                                         var queue = 'demandstatus';
                                         ch.assertQueue(queue, { durable: false });
                                         ch.sendToQueue(queue, Buffer.from(JSON.stringify(status)));
-                                        console.log('status message was sent to demandstatus queue');
+                                        console.log('status invalidemail sent to demandstatus queue');
                                     }
                                 })
                             }
