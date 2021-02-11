@@ -27,7 +27,7 @@ amqp.connect(dbConfig.RABBITMQ, (err, conn) => {
             var buf = message.content
             var record = JSON.parse(buf.toString());
             var sql = "update demandsdue set status = '"+record.status+"', sentby= '"+record.sentby+"', datesent='"+record.datesent+"'  where id = " + record.id
-            console.log(sql);
+           // console.log(sql);
             oracledb.getConnection(
                 {
                     user: dbConfig.user,

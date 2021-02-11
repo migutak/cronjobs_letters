@@ -39,10 +39,6 @@ function currentDate() {
 
 // schedule tasks to be run on the server
 cron.schedule("* * * * *", function () {
-    //
-    console.log("---------------------");
-    console.log("Running Cron Job");
-
     // get demands due
     var sqldd = "select * from demandsdue where status = 'pending'"
     oracledb.getConnection(
@@ -111,9 +107,11 @@ cron.schedule("* * * * *", function () {
                                         emaildata.title = record.DEMANDLETTER,
                                         emaildata.guarantor = response.data.guarantors || []
 
-                                        console.log('generate letter ', bodyletter);
+                                        console.log('generate letter =start=' + bodyletter.acc);
                                         // generate letter
                                         const dd_resp = await axios.post(URL + record.DEMANDLETTER + '/download', bodyletter);
+
+                                        console.log('generate letter =end=' + bodyletter.acc);
 
                                         demandhisdetails.accnumber = record.ACCNUMBER,
                                         demandhisdetails.custnumber= record.CUSTNUMBER,
@@ -139,9 +137,9 @@ cron.schedule("* * * * *", function () {
 
                                         console.log('....demandhisdetails..', demandhisdetails);
 
-                                        // sendDemandEmail
+                                        console.log('send email letter =start=' + bodyletter.acc);
                                         const send_email_resp = await axios.post(EMAIL, emaildata);
-                                        console.log(send_email_resp.data)
+                                        console.log('send email letter =end=' + bodyletter.acc);
                                         // send sms
                                         // get template
                                         const emailtemp_resp = await axios.get(EMAIL + '/api/demandsettings/' + demand.toLowerCase());

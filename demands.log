@@ -9094,3 +9094,7 @@ Session ID: 0 Serial number: 0
 [2019-12-12T00:59:00.010] [ERROR] demands - ORA-12514: TNS:listener does not currently know of service requested in connect descriptor
 [2019-12-12T00:59:30.007] [ERROR] demands - ORA-12514: TNS:listener does not currently know of service requested in connect descriptor
 [2019-12-12T01:00:00.012] [ERROR] demands - ORA-12514: TNS:listener does not currently know of service requested in connect descriptor
+[2020-06-29T19:55:32.322] [ERROR] demands - ORA-12541: TNS:no listener
+[2020-06-29T19:56:02.146] [ERROR] demands - ORA-12541: TNS:no listener
+[2020-06-29T19:57:00.050] [ERROR] demands - ORA-12514: TNS:listener does not currently know of service requested in connect descriptor
+[2020-06-29T19:57:30.031] [ERROR] demands - ORA-12514: TNS:listener does not currently know of service requested in connect descriptor

@@ -40,14 +40,14 @@ amqp.connect(dbConfig.RABBITMQ, (err, conn) => {
             // generate letter
             (async function () {
                 try {
-                    console.log('======Next======');
+                    
                     var buf = message.content
                     var record = JSON.parse(buf.toString());
                     var emaildata = {};
-                    console.log(record);
+                    
                     const dd_resp = await axios.post(dbConfig.LETTERGENERATEURL + record.demand + '/download', record);
                     console.log('=========letter generated========')
-                    console.log(dd_resp.data);
+                    //console.log(dd_resp.data);
                     emaildata.name = record.client_name,
                     emaildata.email = record.customeremail,// 'vomwega@co-opbank.co.ke',
                     emaildata.branchemail = record.branchemail || 'Collection Support <collectionssupport@co-opbank.co.ke>',
@@ -70,8 +70,6 @@ amqp.connect(dbConfig.RABBITMQ, (err, conn) => {
                         'owner': 'auto',
                         'message': smsMessage,
                     };
-
-                    console.log(smsdata)
                     
                     // send to demand queue
                     amqp.connect(dbConfig.RABBITMQ, (err, conn) => {
@@ -95,8 +93,6 @@ amqp.connect(dbConfig.RABBITMQ, (err, conn) => {
                         status: 'sent',
                         sentby: 'auto'
                     };
-
-                    console.log(status)
 
                     amqp.connect(dbConfig.RABBITMQ, (err, conn) => {
                         if (err != null) bail(err);
@@ -134,7 +130,7 @@ amqp.connect(dbConfig.RABBITMQ, (err, conn) => {
                     demandhisdetails.guarantorsemail = '',
                     demandhisdetails.sendemail = record.branchemail || 'Customer Service <customerservice@co-opbank.co.ke>'
 
-                    console.log(demandhisdetails)
+                    
                     
                     amqp.connect(dbConfig.RABBITMQ, (err, conn) => {
                         if (err != null) bail(err);

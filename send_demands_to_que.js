@@ -131,9 +131,7 @@ cron.schedule("*/30 * * * * 1-6", function () {
                                     }
                                 })();
                             } else {
-                                // console.log(result.rows[i].ACCNUMBER + '..with email of ' + result.rows[i].EMAILADDRESS + ' is invalid');
-                                // logger.trace(result.rows[i].ACCNUMBER + '..with email of ' + result.rows[i].EMAILADDRESS + ' is invalid');
-                                // update with invalid email
+                                // invalid emails
                                 const status = {
                                     id: record.ID,
                                     from: 'loans',
