@@ -49,7 +49,7 @@ amqp.connect(dbConfig.RABBITMQ, (err, conn) => {
                     console.log('=========letter generated========')
                     //console.log(dd_resp.data);
                     emaildata.name = record.client_name,
-                    emaildata.email = record.customeremail,// 'vomwega@co-opbank.co.ke',
+                    emaildata.email = record.customeremail,
                     emaildata.branchemail = record.branchemail || 'Collection Support <collectionssupport@co-opbank.co.ke>',
                     emaildata.title = record.demand,
                     emaildata.file = dd_resp.data.message

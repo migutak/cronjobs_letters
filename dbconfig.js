@@ -5,8 +5,8 @@ module.exports = {
     connectString : process.env.NODE_ORACLEDB_CONNECTIONSTRING || "52.117.54.217:1521/ORCLCDB.localdomain",
     //connectString : process.env.DB_CONNECTIONSTRING || "172.16.210.14:1564/ecollect",
     
-    //RABBITMQ         : process.env.RABBITMQ || 'amqp://guest:guest@ecollectweb.co-opbank.co.ke',
-    RABBITMQ         : process.env.RABBITMQ || 'amqp://guest:guest@127.0.0.1',
+    RABBITMQ         : process.env.RABBITMQ || 'amqp://guest:guest@ecollectweb.co-opbank.co.ke',
+    //RABBITMQ         : process.env.RABBITMQ || 'amqp://guest:guest@127.0.0.1',
     LETTERGENERATEURL: process.env.LETTERGENERATEURL || 'http://172.16.204.71:8004/docx/',
     SENDEMAILURL     : process.env.SENDEMAILURL || 'http://172.16.204.71:8005/demandemail/email',
     API              : process.env.API || 'http://172.16.204.71:8000',

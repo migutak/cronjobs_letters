@@ -5,7 +5,7 @@
   "main": "send_letters.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently \"node send_demands.js\" \"node demand_status.js\" \"node generate.js\" \"node sms_monitor.js\" \"node demandhis_monitor.js\""
+    "start": "concurrently \"node send_demands_to_que.js\" \"node demand_status.js\" \"node generate.js\" \"node sms_monitor.js\" \"node demandhis_monitor.js\""
   },
   "repository": {
     "type": "git",
