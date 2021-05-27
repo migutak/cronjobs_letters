@@ -36,8 +36,7 @@ function currentDate() {
 // changed from * 06-18 * * 1-6 to * * * * 1-6
 cron.schedule("*/30 * * * * 1-6", function () {
     //
-    console.log("---------------------");
-    console.log("Running Cron Job");
+    console.log("---Running Send_letter_to_queue-Cron---");
 
     // get demands due
     var sqldd = "select * from demandsdue where status = 'pending' offset 0 rows fetch next 1 rows only"
@@ -67,8 +66,6 @@ cron.schedule("*/30 * * * * 1-6", function () {
                     if (result.rows.length > 0) {
                         for (i = 0; i < result.rows.length; i++) {
                             var record = result.rows[i];
-                            console.log('=======record=======');
-                            console.log(record)
                             if (validator.validate(result.rows[i].EMAILADDRESS)) {
                                 console.log('... valid email ....');
                                 // console.log(result.rows[i]);
@@ -198,5 +195,5 @@ function bail(err) {
     process.exit(1);
 }
 
-app.listen('2500');
+//app.listen('2500');
 console.log('send dd letters cron app running ....')

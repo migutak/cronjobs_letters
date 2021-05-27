@@ -160,5 +160,5 @@ function bail(err) {
     process.exit(1);
 }
 
-app.listen('2503');
-console.log('dd status update app running .... 2503');
+//app.listen('2503');
+console.log('dd generate app running ');
