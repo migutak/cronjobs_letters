@@ -1,21 +1,25 @@
 version: "3.3"
 services:
-  cronjobs_letters:
-    image: migutak/cronjobs_letters
-    container_name: cronjobs_letters
-    restart: always
+  lettersdelivery:
+    image: 172.16.204.72:5100/node-email:4.3
+    container_name: lettersdelivery
     environment:
-      - RABBITMQ=amqp://guest:guest@ecollectweb.co-opbank.co.ke
-      - LETTERGENERATEURL=http://172.16.204.71:8004/docx
-      - DB_USER=ecol
-      - DB_PASSWORD=ecol
-      - DB_CONNECTIONSTRING=172.16.210.14:1564/ecollect
-      - SENDEMAILURL=http://172.16.204.71:8005/demandemail/email
-      - API=http://172.16.204.71:8000
-      - NODEAPI=http://172.16.204.71:6001/nodeapi
-    ports:
-      - "3218:3218"
-      - "2502:2502"
-      - "2505:2505"
-      - "2503:2503"
-      - "2504:2504"
+    - DB_USER=ecol 
+    - DB_PASSWORD=L#TTc011 
+    - NODE_ORACLEDB_CONNECTIONSTRING=copkprdcont3-scan.co-opbank.co.ke:1559/ECOLLECT
+    - RABBITMQ=amqp://guest:guest@ecollectweb.co-opbank.co.ke
+    - LETTERGENERATEURL=http://172.16.204.72:8004/docx/
+    - SENDEMAILURL=http://172.16.204.72:8005/demandemail/email
+    - API=http://ecollectweb.co-opbank.co.ke
+    - NODEAPI=http://ecollectweb.co-opbank.co.ke/nodeapi
+    - TZ=Africa/Nairobi
+    volumes:
+    - /app/nfs/demandletters:/app/nfs/demandletters
+    logging:
+      driver: json-file
+      options:
+        max-size: "100m"
+        max-file: "30"
+    restart: always
+    network_mode: bridge
+

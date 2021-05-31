@@ -36,7 +36,7 @@ amqp.connect(dbConfig.RABBITMQ, (err, conn) => {
             demandhisdetails.guarantorsno = 0,
             demandhisdetails.guarantorsemail = '',
             demandhisdetails.sendemail = record.sendemail || 'Customer Service <customerservice@co-opbank.co.ke>'
-            console.log(demandhisdetails);
+            
             axios.post(dbConfig.API + '/api/demandshistory', demandhisdetails).then(function(resp){
                 console.log('... added to ddhis ...');
             }).catch(function(error){
@@ -53,5 +53,5 @@ function bail(err) {
     process.exit(1);
 }
 
-app.listen('2505');
+//app.listen('2505');
 console.log('dd his update app running ....');                    

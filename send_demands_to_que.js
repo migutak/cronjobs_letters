@@ -2,21 +2,14 @@ const axios = require('axios');
 var validator = require("email-validator");
 const cron = require("node-cron");
 const express = require("express");
-const fs = require("fs");
+
 app = express();
-var log4js = require('log4js');
 var oracledb = require('oracledb');
 var amqp = require('amqplib/callback_api');
 oracledb.outFormat = oracledb.OBJECT;
 oracledb.autoCommit = true;
 var dbConfig = require('./dbconfig.js');
 
-log4js.configure({
-    appenders: { demands: { type: 'file', filename: 'demands.log' } },
-    categories: { default: { appenders: ['demands'], level: 'trace' } }
-});
-
-var logger = log4js.getLogger('demands');
 
 
 function currentDate() {
@@ -48,7 +41,6 @@ cron.schedule("*/30 * * * * 1-6", function () {
         }, function (err, connection) {
             if (err) {
                 console.error(err.message);
-                logger.error(err.message);
                 return;
             }
             connection.execute(
@@ -58,7 +50,6 @@ cron.schedule("*/30 * * * * 1-6", function () {
                 function (err, result) {
                     if (err) {
                         console.error(err.message);
-                        logger.error(err.message);
                         doRelease(connection);
                         return;
                     }
@@ -114,7 +105,7 @@ cron.schedule("*/30 * * * * 1-6", function () {
                                                     var queue = 'demands_togenerate';
                                                     ch.assertQueue(queue, { durable: false });
                                                     ch.sendToQueue(queue, Buffer.from(JSON.stringify(bodyletter)));
-                                                    console.log('demands_togenerate was sent');
+                                                    console.log('==entry=added=to=>demands_togenerate');
                                                 }
                                             });
 
@@ -145,7 +136,6 @@ cron.schedule("*/30 * * * * 1-6", function () {
                                         }
                                     } catch (error) {
                                         console.error(error);
-                                        // logger.error(error);
                                     }
                                 })();
                             } else {

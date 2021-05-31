@@ -17,8 +17,6 @@ RUN apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade && apt-get i
   apt-get -y autoremove && apt-get -y clean && \
   ldconfig
 
-#RUN useradd -ms /bin/bash  node
-
 WORKDIR /home/node/app
 RUN chown node:node -R /home/node/app
 USER node
@@ -27,6 +25,6 @@ COPY --chown=node package*.json ./
 RUN npm install --production
 COPY --chown=node . .
 
+CMD ["node", "send_demands_to_que.js"]
 
-CMD [ "npm", "start" ]
-# docker build -t migutak/letterdelivery:5.0 .
+# docker build -t migutak/letterdelivery:5.1 .
