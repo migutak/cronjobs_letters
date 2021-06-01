@@ -33,36 +33,46 @@ amqp.connect(dbConfig.RABBITMQ, (err, conn) => {
                     
                     var buf = message.content
                     var record = JSON.parse(buf.toString());
-                    const accnumber = record.ACCNUMBER;
+                    const accnumber = record[i].ACCNUMBER;
+                    const custnumber = record[i].CUSTNUMBER;
                     // generate letterdata
-                    const response = await axios.get(dbConfig.ACCOUNTSAPI + '/accountsapi/account/' + result.rows[i].ACCNUMBER);
+                    const agent = new https.Agent({ rejectUnauthorized: false });
+                    const agentSSL = new https.Agent({
+                        requestCert: true,
+                        rejectUnauthorized: false,
+                         ca:fs.readFileSync("./cert/server.cert"),
+                         cert: fs.readFileSync("./usercert.pem"),
+                         key: fs.readFileSync("./key.pem"),
+                     });
+                    const response = await axios.get(dbConfig.ACCOUNTSAPI + '/accountsapi/account/' + accnumber +'/' + custnumber, { httpsAgent: agent });
+                    
                     if (response.data) {
                         const bodyletter = {};
                         bodyletter.demand = record.DEMANDLETTER;
                         bodyletter.letterid = id;
                         bodyletter.showlogo = true;
                         bodyletter.format = 'pdf';
-                        bodyletter.cust = response.data.custnumber;
-                        bodyletter.acc = response.data.accnumber;
-                        bodyletter.custname = response.data.client_name;
-                        bodyletter.address = response.data.addressline1;
-                        bodyletter.telnumber= response.data.telnumber,
-                        bodyletter.postcode = response.data.postcode;
-                        bodyletter.arocode = response.data.arocode;
-                        bodyletter.branchname = response.data.branchname;
-                        bodyletter.branchcode = response.data.branchcode;
-                        bodyletter.manager = response.data.manager;
+                        bodyletter.cust = response.custnumber;
+                        bodyletter.acc = response.accnumber;
+                        bodyletter.custname = response.client_name;
+                        bodyletter.address = response.addressline1;
+                        bodyletter.telnumber= response.telnumber,
+                        bodyletter.postcode = response.postcode;
+                        bodyletter.arocode = response.arocode;
+                        bodyletter.branchname = response.branchname;
+                        bodyletter.branchcode = response.branchcode;
+                        bodyletter.manager = response.manager;
                         bodyletter.customeremail = record.EMAILADDRESS;
-                        bodyletter.branchemail = response.data.branchemail || 'Customer Service <customerservice@co-opbank.co.ke>';
-                        bodyletter.ccy = response.data.currency;
+                        bodyletter.branchemail = response.branchemail || 'Customer Service <customerservice@co-opbank.co.ke>';
+                        bodyletter.ccy = response.currency;
                         bodyletter.demand1date = new Date();
-                        bodyletter.guarantors = response.data.guarantors || [];
-                        bodyletter.settleaccno = response.data.settleaccno || '00000000000000';
-                        bodyletter.kbbr = response.data.kbbr;
-                        bodyletter.instamount = response.data.instamount;
-                        bodyletter.oustbalance = response.data.oustbalance;
-                        bodyletter.currency = response.data.currency;
-                        bodyletter.accounts = response.data.accounts;
+                        bodyletter.guarantors = response.guarantors || [];
+                        bodyletter.settleaccno = response.settleaccno || '00000000000000';
+                        bodyletter.kbbr = response.kbbr;
+                        bodyletter.instamount = response.instamount;
+                        bodyletter.oustbalance = response.oustbalance;
+                        bodyletter.currency = response.currency;
+                        bodyletter.accounts = response.accounts;
 
                         // push to queue
                         amqp.connect(dbConfig.RABBITMQ, (err, conn) => {
@@ -95,7 +105,7 @@ amqp.connect(dbConfig.RABBITMQ, (err, conn) => {
                                 var queue = 'demandstatus';
                                 ch.assertQueue(queue, { durable: false });
                                 ch.sendToQueue(queue, Buffer.from(JSON.stringify(status)));
-                                console.log('status processing sent to demandstatus queue');
+                                console.log('Status processing sent to demandstatus queue');
                             }
                         })
                     } else {
@@ -104,7 +114,7 @@ amqp.connect(dbConfig.RABBITMQ, (err, conn) => {
                     }
 
                 } catch (error) {
-                    console.log(error)
+                    console.log(error.message)
                 }
 
             })();

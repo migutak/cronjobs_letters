@@ -10,5 +10,6 @@ module.exports = {
     LETTERGENERATEURL: process.env.LETTERGENERATEURL || 'http://172.16.204.71:8004/docx/',
     SENDEMAILURL     : process.env.SENDEMAILURL || 'http://172.16.204.71:8005/demandemail/email',
     API              : process.env.API || 'http://172.16.204.71:8000',
-    NODEAPI          : process.env.NODEAPI || 'http://172.16.204.71:6001/nodeapi'
+    NODEAPI          : process.env.NODEAPI || 'http://172.16.204.71:6001/nodeapi',
+    ACCOUNTSAPI : process.env.ACCOUNTSAPI || 'http://172.16.204.71:5001/accountsapi'
   };

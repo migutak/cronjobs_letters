@@ -27,4 +27,4 @@ COPY --chown=node . .
 
 CMD ["node", "send_demands_to_que.js"]
 
-# docker build -t migutak/letterdelivery:5.1 .
+# docker build -t migutak/letterdelivery:5.2 .
