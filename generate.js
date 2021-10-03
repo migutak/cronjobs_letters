@@ -46,7 +46,7 @@ amqp.connect(dbConfig.RABBITMQ, (err, conn) => {
 
                     // send Demand Email
                     const send_email_resp = await axios.post(dbConfig.SENDEMAILURL, emaildata);
-                    console.log(send_email_resp.data);
+                    //console.log(send_email_resp.data);
                     ///send_email_resp.status == 200
                     if (send_email_resp.data.result == 'success') {
                         // send sms

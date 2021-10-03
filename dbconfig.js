@@ -1,10 +1,7 @@
 module.exports = {
     user          : process.env.DB_USER || "ecol",
     password      : process.env.DB_PASSWORD || 'ecol', //L#TTc011
-    // connectString : process.env.NODE_ORACLEDB_CONNECTIONSTRING || "dbsvr2dr:1523/ecoltst",
     connectString : process.env.NODE_ORACLEDB_CONNECTIONSTRING || "52.117.54.217:1521/ORCLCDB.localdomain",
-    //connectString : process.env.DB_CONNECTIONSTRING || "172.16.210.14:1564/ecollect",
-    
     RABBITMQ         : process.env.RABBITMQ || 'amqp://guest:guest@ecollectweb.co-opbank.co.ke',
     //RABBITMQ         : process.env.RABBITMQ || 'amqp://guest:guest@127.0.0.1',
     LETTERGENERATEURL: process.env.LETTERGENERATEURL || 'http://172.16.204.71:8004/docx/',
