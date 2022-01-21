@@ -27,7 +27,7 @@
     "cors": "^2.8.5",
     "email-validator": "^2.0.4",
     "express": "^4.17.1",
-    "log4js": "^4.4.0",
+    "log4js": "^6.4.0",
     "node-cron": "^2.0.3",
     "oracledb": "^5.1.0"
   }
