@@ -6,16 +6,16 @@ RUN  yum -y install oracle-release-el7 oracle-nodejs-release-el7 && \
      rm -rf /var/cache/yum
 
 # Get a new image
-FROM node:16-buster-slim
+FROM node:18-alpine3.15
 
 # Copy the Instant Client libraries, licenses and config file from the previous image
 COPY --from=builder /usr/lib/oracle /usr/lib/oracle
 COPY --from=builder /usr/share/oracle /usr/share/oracle
 COPY --from=builder /etc/ld.so.conf.d/oracle-instantclient.conf /etc/ld.so.conf.d/oracle-instantclient.conf
 
-RUN apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade && apt-get install -y libaio1 && \
-  apt-get -y autoremove && apt-get -y clean && \
-  ldconfig
+#RUN apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade && apt-get install -y libaio1 && \
+#  apt-get -y autoremove && apt-get -y clean && \
+ # ldconfig
 
 WORKDIR /home/node/app
 RUN chown node:node -R /home/node/app
@@ -27,4 +27,4 @@ COPY --chown=node . .
 
 CMD ["node", "send_demands_to_que.js"]
 
-# docker build -t migutak/letterdelivery:6.0 .
+# docker build --no-cache -t migutak/letterdelivery:6.1 .
